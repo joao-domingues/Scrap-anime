@@ -1,12 +1,9 @@
 from dataclasses import asdict
 import os
 import sqlite3
-import numpy
 import shutil
-import time
-import csv
 from sqlite3 import Error
-import re
+
 
 def copia():
     # Copia o arquivo de histórico do Chrome
@@ -83,10 +80,15 @@ def format():
     conn.commit()
     #TODO arrumar um jeito de limpar caracter da coluna pq esses nests tão feios
 
-def bdCola():
-    os.rename("C:/Users/Joao/Scrap anime/History.db","C:/Users/Joao/Scrap anime/Anime.db")
+
+
+def bdFim():
+    shutil.copyfile('C:/Users/Joao/Scrap anime/History.db', 'C:/Users/Joao/Scrap anime/Anime.db')
+    os.remove('C:/Users/Joao/Scrap anime/History.db')
+
+
 
 copia()
 conecta()
 format()
-bdCola()
+bdFim()
