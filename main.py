@@ -3,7 +3,7 @@ import os
 import sqlite3
 import shutil
 from sqlite3 import Error
-
+from tmdbv3api import TMDb
 
 def copia():
     # Copia o arquivo de histórico do Chrome
@@ -76,15 +76,34 @@ def format():
     UPDATE Anime
     SET episodio= REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(episodio, 'á',''), 'Á',''), 'é',''), 'É',''), 'í',''), 'Í',''), 'ó',''), 'Ó',''), 'ú',''), 'Ú',''), '-',''), 'ç',''), 'Ç',''), '|',''), '–',''), 'Ê',''), '!',''), '@',''), '#',''), '$',''), '%',''), 'ê',''), '&',''), '*',''), '(',''), ')',''), '?','');
     ALTER TABLE Anime DROP COLUMN semNada;
+    DELETE 
     """)
     conn.commit()
+    cursorObj = conn.cursor()
+    cursorObj.execute("""
+    SELECT title, group_concat(episodio)
+    FROM Anime
+    GROUP BY title
+    """)
+    print(cursorObj.fetchall())
     #TODO arrumar um jeito de limpar caracter da coluna pq esses nests tão feios
+    #TODO Salvar resultado da query na variável -> deletar tabela -> inserir dados da variável na tabela deletada 
+
+def api():
+    tmdb = TMDb()
+    tmdb.api_key = '62837be5d9c3e91a14b19abfd99a0368'
+    tmdb.language = 'br'
+    tmdb.debug = True
+    
 
 
 
 def bdFim():
     shutil.copyfile('C:/Users/Joao/Scrap anime/History.db', 'C:/Users/Joao/Scrap anime/Anime.db')
     os.remove('C:/Users/Joao/Scrap anime/History.db')
+    # https://www.geeksforgeeks.org/how-to-insert-image-in-sqlite-using-python/
+    # TMDB's API pronta no site
+    # TODO Imagem, plot e ano 
 
 
 
