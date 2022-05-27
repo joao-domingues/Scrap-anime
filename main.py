@@ -5,6 +5,7 @@ import shutil
 from sqlite3 import Error
 from tmdbv3api import TMDb
 
+
 def copia():
     # Copia o arquivo de histórico do Chrome
     shutil.copy(r"C:/Users/Joao/AppData/Local/Google/Chrome/User Data/Default/History", r"C:/Users/Joao/Scrap anime/History.db")
